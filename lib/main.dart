@@ -69,6 +69,38 @@ class RandomWordsState extends State<RandomWords> {
       },
       );
     }
+
+  void _pushSaved() {
+      Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+          builder: (BuildContext context) {
+            final Iterable<ListTile> titles = _saved.map(
+                (WordPair pair) {
+                  return new ListTile(
+                    title: new Text(
+                      pair.asPascalCase,
+                      style: _biggerFont,
+                    ),
+                  );
+                },
+            );
+            final List<Widget> divided = ListTile
+                .divideTiles(
+                  context: context,
+                  tiles: titles
+            )
+                .toList();
+
+            return new Scaffold(
+              appBar: new AppBar(
+                title: const Text('Saved Suggestions'),
+              ),
+              body: new ListView(children: divided),
+            );
+          },
+        ),
+      );
+  }
 }
 
 class RandomWords extends StatefulWidget {
